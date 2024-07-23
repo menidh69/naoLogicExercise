@@ -24,7 +24,7 @@ export class ProductData {
   vendorId: string;
 
   @Prop()
-  manufacturerId: number;
+  manufacturerId: string;
 
   @Prop()
   storefrontPriceVisibility: string;

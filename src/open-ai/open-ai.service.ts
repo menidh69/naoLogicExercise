@@ -15,24 +15,33 @@ export class OpenAiService {
     productDescription: string;
     productName: string;
     category: string;
-  }): Promise<string> {
-    const messages = [
-      new SystemMessage(`
+  }): Promise<{ success: boolean; description: string }> {
+    try {
+      const messages = [
+        new SystemMessage(`
         You are an expert in medical sales. 
         Your specialty is medical consumables used by hospitals on a daily basis. 
         Your task to enhance the description of a product based on the information provided, you should 
         return a description of one parapgraph long`),
-      new HumanMessage(`
+        new HumanMessage(`
         Product name: $${productName}
         Product description: ${productDescription}
         Category: ${category}
         `),
-    ];
+      ];
 
-    const parser = new StringOutputParser();
-    const result = await this.model.invoke(messages);
-    const description = await parser.invoke(result);
-    console.log(description);
-    return description;
+      const parser = new StringOutputParser();
+      const result = await this.model.invoke(messages);
+      const description = await parser.invoke(result);
+      console.log(description);
+      return { success: true, description };
+    } catch (e) {
+      console.error('Unable to get AI response');
+      console.error(e);
+      return Promise.resolve({
+        success: false,
+        description: productDescription,
+      });
+    }
   }
 }

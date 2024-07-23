@@ -66,6 +66,9 @@
       "json",
       "ts"
     ],
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(@langchain/openai)|langchain)"
+    ],
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {

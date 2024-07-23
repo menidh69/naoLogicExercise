@@ -3,10 +3,10 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { createReadStream } from 'fs';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const csv = require('csv-parser');
-import { ProductService } from 'src/product/product.service';
-import { ProductCsvDto } from 'src/dtos/productCsv.dto';
+import { ProductService } from '../product/product.service';
+import { ProductCsvDto } from '../dtos/productCsv.dto';
 import { join } from 'path';
-import { OpenAiService } from 'src/open-ai/open-ai.service';
+import { OpenAiService } from '../open-ai/open-ai.service';
 
 @Injectable()
 export class TasksService {
@@ -16,11 +16,11 @@ export class TasksService {
     private openAIService: OpenAiService,
   ) {}
 
-  @Cron(CronExpression.EVERY_30_MINUTES)
+  @Cron('0 17 0 * * 1-5')
   handleCron() {
     const results: ProductCsvDto[] = [];
     // Call provider endpoint
-    createReadStream(join(process.cwd()) + '/src/static/images40.txt')
+    createReadStream(join(process.cwd()) + '/../static/images40.txt')
       .pipe(csv({ separator: '\t' }))
       .on('data', (data: ProductCsvDto) => {
         results.push(data);
@@ -33,17 +33,18 @@ export class TasksService {
             await this.productService.create(data);
             console.log('saved ' + data.ProductID);
             if (count < 11) {
-              const description = await this.openAIService.getNewAIDesscription(
-                {
+              const { description, success } =
+                await this.openAIService.getNewAIDesscription({
                   productDescription: data.ProductDescription,
                   productName: data.ProductName,
                   category: data.CategoryName,
-                },
-              );
-              this.productService.updateProductDescription({
-                productId: data.ProductID,
-                description,
-              });
+                });
+              if (success) {
+                this.productService.updateProductDescription({
+                  productId: data.ProductID,
+                  description,
+                });
+              }
             }
             count++;
             // call chatgpt for description

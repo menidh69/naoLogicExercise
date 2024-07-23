@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ProductCsvDto } from 'src/dtos/productCsv.dto';
-import { UpdateProductDto } from 'src/dtos/updateProduct.dto';
-import { VariantType } from 'src/enums/variantType.enum';
-import { Option } from 'src/schemas/option.schema';
-import { Product, ProductData } from 'src/schemas/products.schema';
-import { Variant } from 'src/schemas/variant.schema';
+import { ProductCsvDto } from '../dtos/productCsv.dto';
+import { UpdateProductDto } from '../dtos/updateProduct.dto';
+import { VariantType } from '../enums/variantType.enum';
+import { Option } from '../schemas/option.schema';
+import { Product, ProductData } from '../schemas/products.schema';
+import { Variant } from '../schemas/variant.schema';
 import { nanoid } from 'nanoid';
 
 @Injectable()

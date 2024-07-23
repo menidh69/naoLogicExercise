@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { OptionValues, OptionValuesSchema } from './optionValues.schema';
-import { VariantType } from 'src/enums/variantType.enum';
+import { VariantType } from '../enums/variantType.enum';
 
 @Schema()
 export class Option {

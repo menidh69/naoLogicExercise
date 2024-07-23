@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  nao-products:
+    build: .
+    container_name: 'nao-products'
+    restart: always
+    environment:
+      NODE_ENV: 'local'
+      MONGO_DB_URL: 'mongodb://mongodb:27017/naoLogic'
+      OPENAI_API_KEY: sk-proj-xkgNlaRMmZJDYL7hNK3JT3BlbkFJ0PUDO2sAp51hGoP3RGtl
+      APP_PORT: 3000
+
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/src
+    networks:
+      - node-network
+
+  mongodb:
+    image: mongo:6-jammy
+    ports:
+      - '27018:27017'
+    volumes:
+      - dbdata6:/data/db
+    networks:
+      - node-network
+volumes:
+  dbdata6:
+
+networks:
+  node-network:
+    driver: bridge

@@ -1,7 +1,7 @@
 export class ProductCsvDto {
   SiteSource: string;
   ItemID: string;
-  ManufacturerID: number;
+  ManufacturerID: string;
   ManufacturerCode: string;
   ManufacturerName: string;
   ProductID: number;

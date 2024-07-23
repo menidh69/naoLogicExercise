@@ -1,5 +1,6 @@
-Requirements:
-Node 20
+## Requirements:
+
+Node 20 or Docker installed
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
@@ -9,7 +10,21 @@ Node 20
 $ npm install
 ```
 
-## Running the app
+## Run app in docker
+
+Add your openAI api key to docker compose file
+
+```bash
+#build
+docker-compose build
+
+#Run the app
+docker-compose up -d
+```
+
+## Running the app locally
+
+Create an `.env` file using the example.env template
 
 ```bash
 # development
@@ -22,7 +37,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## Test (Not finished, lang chain hard to debug for jest)
 
 ```bash
 # unit tests

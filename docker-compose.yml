@@ -7,7 +7,7 @@ services:
     environment:
       NODE_ENV: 'local'
       MONGO_DB_URL: 'mongodb://mongodb:27017/naoLogic'
-      OPENAI_API_KEY: sk-proj-xkgNlaRMmZJDYL7hNK3JT3BlbkFJ0PUDO2sAp51hGoP3RGtl
+      OPENAI_API_KEY: your-api-key
       APP_PORT: 3000
 
     ports:

@@ -1,0 +1,23 @@
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ProductModule } from './product/product.module';
+import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TasksModule } from './tasks/tasks.module';
+import { OpenAiModule } from './open-ai/open-ai.module';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGO_DB_URL),
+    ProductModule,
+    ScheduleModule.forRoot(),
+    TasksModule,
+    OpenAiModule,
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
